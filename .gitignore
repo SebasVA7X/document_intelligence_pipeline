@@ -1,0 +1,30 @@
+# Pipeline outputs
+pdfs/
+output_json/
+output_normalizado/
+triage_report.xlsx
+triage_control.json
+section_freq.json
+section_columns_map.json
+column_map_prompt.txt
+analyzed_pdfs.xlsx
+
+# Images (optional OCR crops)
+output_json/images/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+dist/
+build/
+
+# Environment
+.env
+*.env
+
+# OS
+.DS_Store
+Thumbs.db

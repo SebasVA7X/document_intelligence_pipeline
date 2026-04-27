@@ -1,0 +1,30 @@
+# Tested with Python 3.12
+
+tqdm # progress
+
+# ── PDF extraction ────────────────────────────────────────────────────────────
+PyMuPDF>=1.24.0          # text/image extraction and page rendering
+pdfplumber>=0.11.0       # table detection (lattice + stream)
+pdfminer.six>=20221105   # pdfplumber dependency
+
+# ── OCR ───────────────────────────────────────────────────────────────────────
+
+# Install torch manually before the rest to select the right CUDA version:
+# CPU:  pip install torch torchvision torchaudio
+# CUDA: Go to https://pytorch.org and check which command applies to your CUDA version, for example:
+# pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu128
+# easyocr>=1.7.0
+#
+# If installed before torch, pip may install a CPU-only version of torch automatically.
+
+# ── Image ─────────────────────────────────────────────────────────────────────
+pillow>=10.0.0
+opencv-python-headless>=4.8.0
+numpy>=1.26.0
+
+# ── Excel ─────────────────────────────────────────────────────────────────────
+openpyxl>=3.1.0
+
+# ── LLM (normalizer) ─────────────────────────────────────────────────────────
+anthropic>=0.25.0        # Claude API (--backend claude in normalize.py)
+requests>=2.31.0         # Ollama API (--backend ollama in normalize.py)
