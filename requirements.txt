@@ -1,6 +1,6 @@
 # Tested with Python 3.12
 
-tqdm # progress
+tqdm # progress bars
 
 # ── PDF extraction ────────────────────────────────────────────────────────────
 PyMuPDF>=1.24.0          # text/image extraction and page rendering
