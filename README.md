@@ -1,6 +1,8 @@
 # PDF Pipeline
 
-A modular pipeline for extracting, analyzing, and normalizing content from PDF document corpora into structured Excel matrices. Designed for processing collections of technical documents (manuals, datasheets, instructions) across any industry or domain.
+A modular pipeline for extracting, analyzing, and normalizing content from PDF document corpora into structured Excel matrices. Designed for processing collections of technical documents (manuals, datasheets, instructions) across any industry or domain. 
+
+**Best suited for product manuals, datasheets and technical instruction guides.**
 
 ## Overview
 
@@ -132,7 +134,10 @@ python normalize.py --export-prompt
 
 Output: `analyzed_pdfs.xlsx` with one row per document, one column per detected section category, split across sheets by document type (Short / Medium / Long / Skipped).
 
+**Note:** This pipeline is optimized for document corpora. Results improve significantly when processing multiple similar documents together, as the column map is built from cross-document section frequency analysis.
+
 ---
+
 
 ## Stage 1 Detail: Extraction Pipeline
 

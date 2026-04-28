@@ -141,7 +141,7 @@ def build_row(
     sections   = json_data.get("sections", [])
     enrichment = json_data.get("enrichment", {})
     filename   = doc.get("file_name", "")
-    stem       = filename.rsplit(".", 1)[0] if "." in archivo else archivo
+    stem       = filename.rsplit(".", 1)[0] if "." in filename else filename
 
     code            = extract_code(stem)
     product_name    = extract_product_name(enrichment, stem, code=code)

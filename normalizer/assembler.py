@@ -93,7 +93,7 @@ def build_column_map_prompt(
 
     Args:
         sections:   List of sections from section_freq.json (with normalized_title,
-                    docs_con_seccion, avg_chars). Structural sections excluded.
+                    doc_count, avg_chars). Structural sections excluded.
         total_docs: Total number of documents in the corpus.
 
     Returns:
@@ -103,7 +103,7 @@ def build_column_map_prompt(
     lines.append("Section titles found (title — frequency — avg chars):")
     for s in sections:
         title = s["normalized_title"].strip()
-        freq  = s["docs_con_seccion"]
+        freq  = s["doc_count"]
         chars = int(s.get("avg_chars", 0))
         lines.append(f'- "{title}" — {freq} docs — {chars} chars')
 

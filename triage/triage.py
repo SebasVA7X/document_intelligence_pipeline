@@ -20,6 +20,7 @@ from pathlib import Path
 from openpyxl import Workbook
 from openpyxl.styles import Font, PatternFill, Alignment, Border, Side
 from openpyxl.utils import get_column_letter
+from tqdm import tqdm
 
 
 # ─── Language detection ───────────────────────────────────────────────────────
@@ -166,7 +167,7 @@ def detect_problems(
     if (
         (page_count <= 4  and section_count > 8)  or
         (5 <= page_count <= 10 and section_count > 15) or
-        (page_count > 10 and section_count > 25)
+        (page_count > 10 and section_count > page_count * 2)
     ):
         problems.append("too_many_sections")
     if section_count >= 4 and untitled / section_count > 0.30:
@@ -609,7 +610,7 @@ def run_triage(
 
     print(f"Analyzing {len(json_files)} files... (quality threshold: {min_score})")
     rows = []
-    for path in json_files:
+    for path in tqdm(json_files, desc="Triaging", unit="file"):
         try:
             rows.append(analyze_json(path))
             print(f"  ✓ {path.name}")

@@ -26,6 +26,7 @@ from extraction.ocr import get_ocr_reader, ocr_page_as_image, ocr_page_as_lines
 from pipeline.segmentation import segment_sections
 from triage.triage import run_triage
 from core.utils import safe_json_dump, section_to_text_plain
+from tqdm import tqdm
 
 
 def _is_image_only(doc: fitz.Document, threshold: int = OCR_AUTO_THRESHOLD) -> bool:
@@ -64,7 +65,7 @@ def process_pdf(pdf_path: Path, reader=None) -> dict[str, Any]:
 
     pl_pdf = open_pdfplumber(str(pdf_path))
     try:
-        for page_number in range(len(doc)):
+        for page_number in tqdm(range(len(doc)), desc=pdf_path.name[:35], unit="pg", leave=False):
             page = doc[page_number]
 
             # 1. Extract
@@ -202,7 +203,7 @@ def main():
         print(f"No PDF files found in {INPUT_DIR.resolve()}")
         return
 
-    for pdf_path in pdf_files:
+    for pdf_path in tqdm(pdf_files, desc="PDFs", unit="file"):
         print(f"Processing: {pdf_path.name}")
         result   = process_pdf(pdf_path, reader=reader)
         out_file = OUTPUT_DIR / f"{pdf_path.stem}.json"

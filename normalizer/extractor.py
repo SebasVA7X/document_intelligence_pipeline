@@ -39,20 +39,15 @@ def extract_code(filename_stem: str) -> str | None:
 
 # ─── Document type ────────────────────────────────────────────────────────────
 
-def classify_doc_type(codigo: str | None) -> str:
-    """Classify the document as 'manual' or 'document'.
+def classify_doc_type(code: str | None) -> str:
+    """Classify the document as 'manual' or 'document'."""
+    return "manual" if code is not None else "document"
 
-    Documents with a detected product code are treated as product manuals.
-    """
-    return "manual" if codigo is not None else "document"
-
-
-# ─── Product name ─────────────────────────────────────────────────────────────
 
 def extract_product_name(
     enrichment: dict,
     filename_stem: str,
-    codigo: str | None = None,
+    code: str | None = None,
 ) -> str | None:
     """Return the most reliable product name available.
 
@@ -72,7 +67,7 @@ def extract_product_name(
         best = max(nombre_hints, key=lambda h: h.get("confidence", 0))
         return best["source_text"].strip()
 
-    if codigo is None:
+    if code is None:
         return None
 
     clean = _FILENAME_NOISE.sub("", filename_stem).strip()

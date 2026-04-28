@@ -25,6 +25,7 @@ from normalizer.assembler import build_column_map_prompt, parse_llm_json
 from normalizer.client import LLMClient
 from normalizer.exporter import rows_to_excel
 from normalizer.mapper import build_row
+from tqdm import tqdm
 
 
 # ─── Prompt export (no-API workflow) ─────────────────────────────────────────
@@ -55,9 +56,9 @@ def export_column_map_prompt(
 
     sections = [
         s for s in freq_data.get("sections", [])
-        if s["docs_con_seccion"] >= 2
+        if s["doc_count"] >= 1
         and s["normalized_title"].strip() not in _STRUCTURAL
-        and not s.get("es_estructural", False)
+        and not s.get("is_structural", False)
     ]
     total_docs = freq_data.get("total_docs", 0)
 
@@ -92,7 +93,7 @@ def export_column_map_prompt(
 
 
 # Eligible actions for normalization
-_ACCIONES_PROCESAR = {"process", "process_primary_language"}
+_ACTIONS_TO_PROCESS = {"process", "process_primary_language"}
 
 # Normalized titles that should never be columns (structural markers)
 _STRUCTURAL = {"other", "opening", "closing", "untitled",
@@ -117,9 +118,9 @@ def determine_columns_with_llm(
     """
     sections = [
         s for s in freq_data.get("sections", [])
-        if s["docs_con_seccion"] >= min_docs
+        if s["doc_count"] >= min_docs
         and s["normalized_title"].strip() not in _STRUCTURAL
-        and not s.get("es_estructural", False)
+        and not s.get("is_structural", False)
     ]
 
     total_docs = freq_data.get("total_docs", 0)
@@ -184,9 +185,9 @@ def determine_columns_by_frequency(
     columns = [
         s["normalized_title"].strip()
         for s in freq_data.get("sections", [])
-        if s["docs_con_seccion"] >= threshold
+        if s["doc_count"] >= threshold
         and s["normalized_title"].strip() not in _STRUCTURAL
-        and not s.get("es_estructural", False)
+        and not s.get("is_structural", False)
     ]
 
     if "additional_content" not in columns:
@@ -268,7 +269,7 @@ def run_normalizer(
     all_rows: list[dict[str, Any]] = []
     total = len(control)
 
-    for i, entry in enumerate(control, start=1):
+    for i, entry in enumerate(tqdm(control, desc="Normalizing", unit="doc"), start=1):
         filename  = entry.get("filename", "")
         json_path = Path(entry.get("json_path", ""))
         action    = entry.get("action", "skip")
@@ -309,7 +310,7 @@ def run_normalizer(
             if not current_cols.issubset(cached_cols) or all(
                 row.get(c, "") == "" for c in current_cols
             ):
-                print(f"    ↺ Stale cache for {archivo[:45]} — reprocessing")
+                print(f"    ↺ Stale cache for {filename[:45]} — reprocessing")
             else:
                 for col in columns:
                     if col not in row:
@@ -330,7 +331,7 @@ def run_normalizer(
         try:
             row = build_row(json_data, client, action, columns, title_map)
         except Exception as e:
-            print(f"    ✗ Error processing {archivo}: {e}")
+            print(f"    ✗ Error processing {filename}: {e}")
             continue
 
         with open(out_json, "w", encoding="utf-8") as f:
