@@ -234,22 +234,22 @@ Quality score starts at 100 and applies penalties for detected issues:
 
 | Problem | Penalty | Meaning |
 |---|---|---|
-| `sin_texto` | −50 | No extractable text (image-only, OCR failed) |
-| `mayormente_imagenes` | −30 | Mostly images, very few text lines |
-| `demasiadas_secciones` | −12 | Too many headers for page count |
-| `normalizacion_pobre` | −12 | >60% of sections mapped to fallback column |
-| `muchas_sin_titulo` | −10 | >30% of sections have no detected title |
-| `tablas_sospechosas` | −10 | Tables with >6 columns or >120-char cells |
-| `tablas_con_footer` | −10 | Table cells look like page numbers / codes |
-| `headers_lista` | −8 | Section headers look like list items |
-| `headers_modelo` | −8 | Section headers look like product codes |
-| `headers_largos` | −6 | Multiple headers with >12 words |
-| `secciones_demasiado_cortas` | −6 | Average section < 150 chars |
-| `secciones_demasiado_largas` | −6 | Few sections, very large average size |
-| `muchos_subheaders` | −5 | Subheader count disproportionate to sections |
-| `multilingue` | 0 | Multi-language document (no penalty, special routing) |
+| `no_text` | −50 | No extractable text (image-only, OCR failed) |
+| `mostly_images` | −30 | Mostly images, very few text lines |
+| `too_many_sections` | −12 | Too many headers for page count |
+| `poor_normalization` | −12 | >60% of sections mapped to fallback column |
+| `many_untitled` | −10 | >30% of sections have no detected title |
+| `suspicious_tables` | −10 | Tables with >6 columns or >120-char cells |
+| `footer_tables` | −10 | Table cells look like page numbers / codes |
+| `list_headers` | −8 | Section headers look like list items |
+| `code_headers` | −8 | Section headers look like product codes |
+| `long_headers` | −6 | Multiple headers with >12 words |
+| `sections_too_short` | −6 | Average section < 150 chars |
+| `sections_too_long` | −6 | Few sections, very large average size |
+| `many_subheaders` | −5 | Subheader count disproportionate to sections |
+| `multilingual` | 0 | Multi-language document (no penalty, special routing) |
 
-Documents below the quality threshold are routed to `accion: omitir` in `triage_control.json`. Multi-language documents are routed to `accion: procesar_español` (extract Spanish sections only). You can edit the control JSON manually before running Stage 2 to override any routing decision.
+Documents below the quality threshold are routed to `action: skip` in `triage_control.json`. Multi-language documents are routed to `action: process_primary_language` (extract primary language sections only). You can edit the control JSON manually before running Stage 2 to override any routing decision.
 
 Change the quality threshold:
 
@@ -336,7 +336,7 @@ See `requirements.txt` for pinned versions.
 * Column generation is intentionally constrained to maintain consistency. Best results are achieved when processing documents with similar structure and domain.
 * For sensitive or proprietary documents, local LLM backends are recommended.
 * The generated Excel output is designed as a structured starting point and may require human review before downstream use.
-
+* This pipeline was originally designed for Spanish-language documents; some field names or extracted sections may still appear in Spanish.
 
 ## License
 

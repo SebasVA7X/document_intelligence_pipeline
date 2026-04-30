@@ -51,7 +51,7 @@ def detect_columns(lines: list[TextLine], page_width: float) -> None:
 
     Two-phase approach:
     1. Infer split points from non-table-like lines only, so internal table
-       columns (e.g. Talla S / Talla M / Talla L) don't pollute the page-
+       columns (e.g. S Size / M Size / L Size) don't pollute the page-
        level gap analysis.
     2. Assign table-like lines to the nearest column by x0 proximity rather
        than by gap thresholds, which are unreliable inside dense table cells.
