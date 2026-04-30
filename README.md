@@ -1,4 +1,4 @@
-# PDF Pipeline
+# PDF Matrix Pipeline (version 1.0)
 
 A modular pipeline for extracting, analyzing, and normalizing content from PDF document corpora into structured Excel matrices. Designed for processing collections of technical documents (manuals, datasheets, instructions) across any industry or domain. 
 
@@ -89,11 +89,11 @@ pip install -r requirements.txt
 > pip install -r requirements.txt
 > ```
 
-### 2. Add your PDFs
+### 2. Add your PDFs (use bash or copy them directly)
 
 ```bash
 mkdir pdfs
-cp /your/documents/*.pdf pdfs/ (Copy your pdfs to the directory)
+cp /your/documents/*.pdf pdfs/
 ```
 
 ### 3. Run Stage 1: Extract + Triage
@@ -314,6 +314,27 @@ FIELD_ALIASES = {
 See `requirements.txt` for pinned versions.
 
 ---
+
+## Example Use Cases
+
+- Consolidating product manuals into comparison matrices
+- Extracting recurring sections from technical datasheets
+- Auditing document quality before normalization
+- Preparing structured Excel outputs from semi-standard PDF collections
+
+---
+
+## Project Constraints
+
+## Project Constraints
+
+* This pipeline is optimized for instruction manuals, catalogs, and structured technical documents. Other document types may require adjustments to extraction, enrichment, and normalization logic.
+* Processing time increases with document size and complexity. Large documents (e.g., 500+ pages) may take several minutes to complete.
+* OCR can significantly impact performance, particularly on CPU-only environments.
+* Column generation is intentionally constrained to maintain consistency. Best results are achieved when processing documents with similar structure and domain.
+* For sensitive or proprietary documents, local LLM backends are recommended.
+* The generated Excel output is designed as a structured starting point and may require human review before downstream use.
+
 
 ## License
 
