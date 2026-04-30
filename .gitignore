@@ -1,32 +1,54 @@
-# Pipeline outputs
-pdfs/
-output_json/
-output_normalizado/
-triage_report.xlsx
-triage_control.json
-section_freq.json
-section_columns_map.json
-column_map_prompt.txt
-analyzed_pdfs.xlsx
+# created by virtualenv automatically
+.venv/
+venv/
+env/
+ENV/
 
-# Images (optional OCR crops)
-output_json/images/
-
-# Python
+# Python Files
 __pycache__/
 *.py[cod]
-*.egg-info/
-.venv/
-.idea/
-idea/
-venv/
-dist/
+*$py.class
+
+# Compiled/distributions
 build/
+dist/
+*.egg-info/
+.eggs/
+*.egg
 
-# Environment
+# Logs
+*.log
+
+# Env
 .env
-*.env
+.env.*
+!.env.example
 
-# OS
+# System
 .DS_Store
 Thumbs.db
+
+# PyCharm / IntelliJ
+.idea/
+*.iml
+
+# Testing / coverage
+.pytest_cache/
+.coverage
+coverage.xml
+htmlcov/
+
+# Temp
+*.swp
+*.swo
+
+# Other
+*.pdf
+*.docx
+*.xlsx
+*.json
+*.claude/
+output_json/
+output_normalizado/
+
+column_map_prompt.txt

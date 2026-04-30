@@ -1,6 +1,7 @@
 # Tested with Python 3.12
 
 tqdm # progress bars
+python-dotenv>=1.0.0     # loads environment variables
 
 # ── PDF extraction ────────────────────────────────────────────────────────────
 PyMuPDF>=1.24.0          # text/image extraction and page rendering
