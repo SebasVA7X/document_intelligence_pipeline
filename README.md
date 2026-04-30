@@ -330,8 +330,6 @@ See `requirements.txt` for pinned versions.
 
 ## Project Constraints
 
-## Project Constraints
-
 * This pipeline is optimized for instruction manuals, catalogs, and structured technical documents. Other document types may require adjustments to extraction, enrichment, and normalization logic.
 * Processing time increases with document size and complexity. Large documents (e.g., 500+ pages) may take several minutes to complete.
 * OCR can significantly impact performance, particularly on CPU-only environments.
