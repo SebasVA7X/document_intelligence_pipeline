@@ -1,8 +1,12 @@
-# PDF Matrix Pipeline (version 1.0)
+# Document Intelligence Pipeline (version 1.0)
 
 A modular pipeline for extracting, analyzing, and normalizing content from PDF document corpora into structured Excel matrices. Designed for processing collections of technical documents (manuals, datasheets, instructions) across any industry or domain. 
 
 **Best suited for product manuals, datasheets and technical instruction guides.**
+
+## Tools
+
+Python · PyMuPDF · pdfplumber · EasyOCR · Claude (LLM) · OpenPyXL · Ollama
 
 ## Overview
 
